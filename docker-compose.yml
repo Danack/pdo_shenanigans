@@ -1,0 +1,32 @@
+version: "3"
+services:
+  developing:
+    build: containers/developing
+    volumes:
+      - .:/var/app
+    environment:
+      PDO_MYSQL_TEST_DSN: mysql:host=host.docker.internal;port=3306;dbname=mysqluser
+      PDO_MYSQL_TEST_USER: mysqluser
+      PDO_MYSQL_TEST_PASS: pass12345
+ # firebird:
+ #   image: jacobalberty/firebird:v3.0.10
+  mysql:
+    image: mysql:8.0.30
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: pass12345
+      MYSQL_DATABASE: mysqluser
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: pass12345
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - 3306:3306
+    networks:
+      default_network:
+    volumes:
+      - ./containers/mysql/config/my.cnf:/etc/mysql/my.cnf
+      - ./data/mysql:/var/lib/mysql
+      - .:/var/app
+networks:
+  default_network:
+
