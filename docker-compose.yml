@@ -8,6 +8,7 @@ services:
       PDO_MYSQL_TEST_DSN: mysql:host=host.docker.internal;port=3306;dbname=mysqluser
       PDO_MYSQL_TEST_USER: mysqluser
       PDO_MYSQL_TEST_PASS: pass12345
+      PDO_PGSQL_TEST_DSN: pgsql:host=host.docker.internal;port=5432;dbname=phptest;user=postgresuser;password=pass12345
  # firebird:
  #   image: jacobalberty/firebird:v3.0.10
   mysql:
@@ -27,6 +28,14 @@ services:
       - ./containers/mysql/config/my.cnf:/etc/mysql/my.cnf
       - ./data/mysql:/var/lib/mysql
       - .:/var/app
+  postgres:
+    image: postgres:14.7
+    environment:
+      POSTGRES_USER: postgresuser
+      POSTGRES_PASSWORD: pass12345
+      POSTGRES_DB: phptest
+    ports:
+      - 5432:5432
 networks:
   default_network:
 

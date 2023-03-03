@@ -10,7 +10,8 @@ RUN apt-get update -qq \
     libpng-dev libjpeg-dev ghostscript libxml2-dev libfreetype6-dev \
     libonig-dev  libcurl4-openssl-dev libwebp-dev vim \
     strace valgrind libtiff5-dev libfftw3-dev libde265-dev libheif-dev \
-    libssl-dev libzip-dev unzip libpq-dev mycli libsqlite3-dev libsqlite3-mod-spatialite
+    libssl-dev libzip-dev unzip libpq-dev mycli libsqlite3-dev libsqlite3-mod-spatialite \
+    inetutils-ping postgresql-contrib
 
 # Make the default directory a useful one
 WORKDIR /var/app

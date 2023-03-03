@@ -6,7 +6,7 @@ Developing is working?
 Developing is working?
 
 
-docker-compose up mysql developing --build
+docker-compose up mysql postgres developing --build
 
 git@github.com:Imagick/php-src.git
 
@@ -28,6 +28,10 @@ git checkout pdo_sub_classing
 make install -j8
 
 php run-tests.php ext/pdo ext/pdo_mysql/ ext/pdo_pgsql/
+
+
+psql "sslmode=disable dbname=phptest user=postgresuser host=host.docker.internal"
+
 
 
 ---------------------
