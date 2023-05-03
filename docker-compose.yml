@@ -38,8 +38,6 @@ services:
       MYSQL_ROOT_HOST: "%"
     ports:
       - 3306:3306
-    networks:
-      default_network:
     volumes:
       - ./containers/mysql/config/my.cnf:/etc/mysql/my.cnf
       - ./data/mysql:/var/lib/mysql
@@ -78,7 +76,3 @@ services:
       FIREBIRD_DATABASE: testdb
       FIREBIRD_USER: testuser
       FIREBIRD_PASSWORD: MyPass123
-
-networks:
-  default_network:
-
