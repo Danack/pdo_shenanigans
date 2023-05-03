@@ -9,8 +9,24 @@ services:
       PDO_MYSQL_TEST_USER: mysqluser
       PDO_MYSQL_TEST_PASS: pass12345
       PDO_PGSQL_TEST_DSN: pgsql:host=host.docker.internal;port=5432;dbname=phptest;user=postgresuser;password=pass12345
- # firebird:
- #   image: jacobalberty/firebird:v3.0.10
+      PDO_DBLIB_TEST_DSN: dblib:host=mssql;dbname=master
+      PDO_DBLIB_TEST_USER: SA
+      PDO_DBLIB_TEST_PASS: MyPass123
+      PDO_FIREBIRD_TEST_DSN: firebird:dbname=firebird/3050:/firebird/data/testdb
+      PDO_FIREBIRD_TEST_USER: testuser
+      PDO_FIREBIRD_TEST_PASS: MyPass123
+      PDO_OCI_TEST_DSN: >
+        oci:dbname=(DESCRIPTION =
+          (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = oracle)(PORT = 1521)))
+          (CONNECT_DATA = (SERVICE_NAME = XEPDB1))
+        )
+      PDO_OCI_TEST_USER: testuser
+      PDO_OCI_TEST_PASS: MyPass123
+      PDO_ODBC_TEST_DSN: odbc:driver=MySQL ODBC 8.0 Unicode Driver;server=mysql;database=mysqluser
+      PDO_ODBC_TEST_USER: mysqluser
+      PDO_ODBC_TEST_PASS: pass12345
+
+  # Used for PDO_MYSQL and PDO_ODBC tests
   mysql:
     image: mysql:8.0.30
     command: --default-authentication-plugin=mysql_native_password
@@ -28,6 +44,8 @@ services:
       - ./containers/mysql/config/my.cnf:/etc/mysql/my.cnf
       - ./data/mysql:/var/lib/mysql
       - .:/var/app
+
+  # Used for PDO_PGSQL tests
   postgres:
     image: postgres:14.7
     environment:
@@ -36,6 +54,31 @@ services:
       POSTGRES_DB: phptest
     ports:
       - 5432:5432
+
+  # Used for PDO_DBLIB tests
+  mssql:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      ACCEPT_EULA: Y
+      # SQL Server has PW complexity requirements
+      SA_PASSWORD: MyPass123
+
+  # Used for PDO_OCI tests
+  oracle:
+    image: gvenzl/oracle-xe
+    environment:
+      ORACLE_RANDOM_PASSWORD: true
+      APP_USER: testuser
+      APP_USER_PASSWORD: MyPass123
+
+  # Used for PDO_FIREBIRD tests
+  firebird:
+    image: jacobalberty/firebird
+    environment:
+      FIREBIRD_DATABASE: testdb
+      FIREBIRD_USER: testuser
+      FIREBIRD_PASSWORD: MyPass123
+
 networks:
   default_network:
 
