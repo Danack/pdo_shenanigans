@@ -30,8 +30,15 @@ git checkout pdo_sub_classing
 
 make install -j8
 
-php run-tests.php ext/pdo ext/pdo_mysql/ ext/pdo_pgsql/ ext/pdo_sqlite/
-
+php run-tests.php \
+  ext/pdo \
+  ext/pdo_mysql \
+  ext/pdo_pgsql \
+  ext/pdo_sqlite \
+  ext/pdo_dblib \
+  ext/pdo_firebird \
+  ext/pdo_oci \
+  ext/pdo_odbc
 
 psql "sslmode=disable dbname=phptest user=postgresuser host=host.docker.internal"
 
