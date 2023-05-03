@@ -22,8 +22,11 @@ git checkout pdo_sub_classing
   --with-curl \
   --with-pdo-mysql \
   --with-pdo-pgsql \
-  --with-pdo-sqlite
-
+  --with-pdo-sqlite \
+  --with-pdo-dblib \
+  --with-pdo-firebird \
+  --with-pdo-oci=instantclient,/opt/oracle/instantclient \
+  --with-pdo-odbc=unixODBC,/usr
 
 make install -j8
 
