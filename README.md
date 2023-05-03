@@ -31,6 +31,7 @@ git checkout pdo_sub_classing
 make install -j8
 
 php run-tests.php \
+  ext/pdo \
   ext/pdo_mysql \
   ext/pdo_pgsql \
   ext/pdo_sqlite \
@@ -38,9 +39,6 @@ php run-tests.php \
   ext/pdo_firebird \
   ext/pdo_oci \
   ext/pdo_odbc
-
-# PDOTEST_DSN is not set globally as it would override DSNs for other tests
-PDOTEST_DSN="sqlite::memory:" php run-tests.php ext/pdo
 
 psql "sslmode=disable dbname=phptest user=postgresuser host=host.docker.internal"
 

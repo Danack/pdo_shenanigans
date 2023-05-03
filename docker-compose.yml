@@ -5,7 +5,6 @@ services:
     volumes:
       - .:/var/app
     environment:
-      REDIR_TEST_DIR: /var/app/php-src/ext/pdo/tests/
       PDO_MYSQL_TEST_DSN: mysql:host=host.docker.internal;port=3306;dbname=mysqluser
       PDO_MYSQL_TEST_USER: mysqluser
       PDO_MYSQL_TEST_PASS: pass12345
