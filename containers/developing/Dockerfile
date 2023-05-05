@@ -37,17 +37,16 @@ RUN set -eux; \
     myodbc-installer -a -d -n "MySQL ODBC 8.0 ANSI Driver" -t "Driver=/usr/local/lib/libmyodbc8a.so";
 
 # Install Oracle client SDK
-# This doesn't work on arm
-#RUN set -eux; \
-#    mkdir -p /opt/oracle; \
-#    cd /opt/oracle; \
-#    wget https://download.oracle.com/otn_software/linux/instantclient/2110000/instantclient-basic-linux.x64-21.10.0.0.0dbru.zip; \
-#    wget https://download.oracle.com/otn_software/linux/instantclient/2110000/instantclient-sdk-linux.x64-21.10.0.0.0dbru.zip; \
-#    unzip instantclient-basic-linux.x64-21.10.0.0.0dbru.zip; \
-#    unzip instantclient-sdk-linux.x64-21.10.0.0.0dbru.zip; \
-#    echo /opt/oracle/instantclient_21_10 > /etc/ld.so.conf.d/oracle-instantclient.conf; \
-#    ln -s /opt/oracle/instantclient_21_10 /opt/oracle/instantclient; \
-#    ldconfig;
+RUN set -eux; \
+   mkdir -p /opt/oracle; \
+   cd /opt/oracle; \
+   wget https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-basic-linux.arm64-19.10.0.0.0dbru-2.zip; \
+   wget https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-sdk-linux.arm64-19.10.0.0.0dbru.zip; \
+   unzip instantclient-basic-linux.arm64-19.10.0.0.0dbru-2.zip; \
+   unzip instantclient-sdk-linux.arm64-19.10.0.0.0dbru.zip; \
+   echo /opt/oracle/instantclient_19_10 > /etc/ld.so.conf.d/oracle-instantclient.conf; \
+   ln -s /opt/oracle/instantclient_19_10 /opt/oracle/instantclient; \
+   ldconfig;
 
 # Make the default directory a useful one
 WORKDIR /var/app
