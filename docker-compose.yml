@@ -81,11 +81,11 @@ services:
 
   # Used for PDO_DBLIB tests
   mssql:
-    image: mcr.microsoft.com/mssql/server
+    image: mcr.microsoft.com/azure-sql-edge
     environment:
       ACCEPT_EULA: Y
       # SQL Server has PW complexity requirements
-      SA_PASSWORD: MyPass123
+      MSSQL_SA_PASSWORD: MyPass123
 
   # Used for PDO_OCI tests
   oracle:
