@@ -1,4 +1,4 @@
-FROM debian:11-slim
+FROM --platform=linux/amd64 debian:11-slim
 
 USER root
 
