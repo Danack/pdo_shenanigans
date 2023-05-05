@@ -23,16 +23,18 @@ RUN apt-get update -qq \
     # PDO_OCI dependencies
     libaio1
 
-## Install ODBC connector for MySQL
-# This doesn't work on arm
-#RUN set -eux; \
-#    cd /tmp; \
-#    wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-community-client-plugins_8.0.33-1debian11_amd64.deb; \
-#    wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc_8.0.33-1debian11_amd64.deb; \
-#    dpkg -i mysql-community-client-plugins_8.0.33-1debian11_amd64.deb; \
-#    dpkg -i mysql-connector-odbc_8.0.33-1debian11_amd64.deb; \
-#    rm mysql-community-client-plugins_8.0.33-1debian11_amd64.deb; \
-#    rm mysql-connector-odbc_8.0.33-1debian11_amd64.deb;
+# Install ODBC connector for MySQL
+RUN set -eux; \
+    cd /tmp; \
+    wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc-8.0.33-linux-glibc2.28-aarch64.tar.gz; \
+    tar xf mysql-connector-odbc-8.0.33-linux-glibc2.28-aarch64.tar.gz; \
+    cd mysql-connector-odbc-8.0.33-linux-glibc2.28-aarch64; \
+    cp bin/* /usr/local/bin; \
+    cp lib/* /usr/local/lib; \
+    cd /tmp; \
+    rm -rf /tmp/mysql-connector-odbc-8.0.33-linux-glibc2.28-aarch64; \
+    myodbc-installer -a -d -n "MySQL ODBC 8.0 Unicode Driver" -t "Driver=/usr/local/lib/libmyodbc8w.so"; \
+    myodbc-installer -a -d -n "MySQL ODBC 8.0 ANSI Driver" -t "Driver=/usr/local/lib/libmyodbc8a.so";
 
 # Install Oracle client SDK
 # This doesn't work on arm
