@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 debian:11-slim
+FROM debian:11-slim
 
 USER root
 
@@ -23,27 +23,29 @@ RUN apt-get update -qq \
     # PDO_OCI dependencies
     libaio1
 
-# Install ODBC connector for MySQL
-RUN set -eux; \
-    cd /tmp; \
-    wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-community-client-plugins_8.0.33-1debian11_amd64.deb; \
-    wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc_8.0.33-1debian11_amd64.deb; \
-    dpkg -i mysql-community-client-plugins_8.0.33-1debian11_amd64.deb; \
-    dpkg -i mysql-connector-odbc_8.0.33-1debian11_amd64.deb; \
-    rm mysql-community-client-plugins_8.0.33-1debian11_amd64.deb; \
-    rm mysql-connector-odbc_8.0.33-1debian11_amd64.deb;
+## Install ODBC connector for MySQL
+# This doesn't work on arm
+#RUN set -eux; \
+#    cd /tmp; \
+#    wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-community-client-plugins_8.0.33-1debian11_amd64.deb; \
+#    wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc_8.0.33-1debian11_amd64.deb; \
+#    dpkg -i mysql-community-client-plugins_8.0.33-1debian11_amd64.deb; \
+#    dpkg -i mysql-connector-odbc_8.0.33-1debian11_amd64.deb; \
+#    rm mysql-community-client-plugins_8.0.33-1debian11_amd64.deb; \
+#    rm mysql-connector-odbc_8.0.33-1debian11_amd64.deb;
 
 # Install Oracle client SDK
-RUN set -eux; \
-    mkdir -p /opt/oracle; \
-    cd /opt/oracle; \
-    wget https://download.oracle.com/otn_software/linux/instantclient/2110000/instantclient-basic-linux.x64-21.10.0.0.0dbru.zip; \
-    wget https://download.oracle.com/otn_software/linux/instantclient/2110000/instantclient-sdk-linux.x64-21.10.0.0.0dbru.zip; \
-    unzip instantclient-basic-linux.x64-21.10.0.0.0dbru.zip; \
-    unzip instantclient-sdk-linux.x64-21.10.0.0.0dbru.zip; \
-    echo /opt/oracle/instantclient_21_10 > /etc/ld.so.conf.d/oracle-instantclient.conf; \
-    ln -s /opt/oracle/instantclient_21_10 /opt/oracle/instantclient; \
-    ldconfig;
+# This doesn't work on arm
+#RUN set -eux; \
+#    mkdir -p /opt/oracle; \
+#    cd /opt/oracle; \
+#    wget https://download.oracle.com/otn_software/linux/instantclient/2110000/instantclient-basic-linux.x64-21.10.0.0.0dbru.zip; \
+#    wget https://download.oracle.com/otn_software/linux/instantclient/2110000/instantclient-sdk-linux.x64-21.10.0.0.0dbru.zip; \
+#    unzip instantclient-basic-linux.x64-21.10.0.0.0dbru.zip; \
+#    unzip instantclient-sdk-linux.x64-21.10.0.0.0dbru.zip; \
+#    echo /opt/oracle/instantclient_21_10 > /etc/ld.so.conf.d/oracle-instantclient.conf; \
+#    ln -s /opt/oracle/instantclient_21_10 /opt/oracle/instantclient; \
+#    ldconfig;
 
 # Make the default directory a useful one
 WORKDIR /var/app

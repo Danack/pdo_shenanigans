@@ -26,6 +26,32 @@ services:
       PDO_ODBC_TEST_USER: mysqluser
       PDO_ODBC_TEST_PASS: pass12345
 
+  developing_x64:
+    build: containers/developing_x64
+    volumes:
+      - .:/var/app
+    environment:
+      PDO_MYSQL_TEST_DSN: mysql:host=host.docker.internal;port=3306;dbname=mysqluser
+      PDO_MYSQL_TEST_USER: mysqluser
+      PDO_MYSQL_TEST_PASS: pass12345
+      PDO_PGSQL_TEST_DSN: pgsql:host=host.docker.internal;port=5432;dbname=phptest;user=postgresuser;password=pass12345
+      PDO_DBLIB_TEST_DSN: dblib:host=mssql;dbname=master
+      PDO_DBLIB_TEST_USER: SA
+      PDO_DBLIB_TEST_PASS: MyPass123
+      PDO_FIREBIRD_TEST_DSN: firebird:dbname=firebird/3050:/firebird/data/testdb
+      PDO_FIREBIRD_TEST_USER: testuser
+      PDO_FIREBIRD_TEST_PASS: MyPass123
+      PDO_OCI_TEST_DSN: >
+        oci:dbname=(DESCRIPTION =
+          (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = oracle)(PORT = 1521)))
+          (CONNECT_DATA = (SERVICE_NAME = XEPDB1))
+        )
+      PDO_OCI_TEST_USER: testuser
+      PDO_OCI_TEST_PASS: MyPass123
+      PDO_ODBC_TEST_DSN: odbc:driver=MySQL ODBC 8.0 Unicode Driver;server=mysql;database=mysqluser
+      PDO_ODBC_TEST_USER: mysqluser
+      PDO_ODBC_TEST_PASS: pass12345
+
   # Used for PDO_MYSQL and PDO_ODBC tests
   mysql:
     image: mysql:8.0.30
