@@ -30,7 +30,7 @@ RUN set -eux; \
     tar xf mysql-connector-odbc-8.0.33-linux-glibc2.28-aarch64.tar.gz; \
     cd mysql-connector-odbc-8.0.33-linux-glibc2.28-aarch64; \
     cp bin/* /usr/local/bin; \
-    cp lib/* /usr/local/lib; \
+    cp -r lib/* /usr/local/lib; \
     cd /tmp; \
     rm -rf /tmp/mysql-connector-odbc-8.0.33-linux-glibc2.28-aarch64; \
     myodbc-installer -a -d -n "MySQL ODBC 8.0 Unicode Driver" -t "Driver=/usr/local/lib/libmyodbc8w.so"; \
